@@ -7,9 +7,9 @@
 	</svg>
 	<script src="https://d3js.org/d3.v7.min.js"></script>
 	<script>
-		var covidData = d3.csv("covid_data2.csv");
-		//do the append pattern for each rectangle of data	
-		document.write(covidData);
+		d3.csv("/data/employees.csv", function(data) {
+		    console.log(data);
+		})
 
 	</script>
 </body>
