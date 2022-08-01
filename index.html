@@ -3,8 +3,13 @@
 	<h1>
 	Narrative Visualization
 	</h1>
+	<svg width="300" height="350" style="border: solid">
+	</svg>
 	<script>
-		d3.csv("covid_data2.csv");
+		var covidData = d3.csv("covid_data2.csv");
+		//do the append pattern for each rectangle of data	
+		document.write(covidData);
+
 	</script>
 </body>
 </html>
