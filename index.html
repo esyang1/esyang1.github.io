@@ -1,15 +1,142 @@
 <html>
-<body>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://raw.githubusercontent.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+
+<button onclick="bmwScene()">
+	BMW
+</button>
+<button onclick="buickScene()">
+	Buick
+</button>
+<button onclick="audiScene()">
+	Audi
+</button>
+<body onload="init()">
 	<h1>
 	Narrative Visualization
 	</h1>
-	<svg width="300" height="350" style="border: solid">
+	<p>The following shows a comparison in fuel efficiency between 3 different car manufacturers</p>
+	<svg width="300" height="300" style="border: solid">
 	</svg>
-	<script src="https://d3js.org/d3.v7.min.js"></script>
 	<script>
-		d3.csv("covid_data2.csv", function(data) {
-		    console.log(data);
-		})
+		async function init(){
+			var y = d3.scaleLog().domain([10, 150]).range([0, 200]); 
+			var x = d3.scaleLog().domain([10, 150]).range([200, 0]); 
+			const data = await d3.csv("https://flunky.github.io/cars2017.csv");
+			const bmwData = [];
+			for (let i = 0; i < data.length; i++){
+				if (data[i].Make == "BMW"){
+					bmwData.push(data[i])
+				}
+			}
+
+
+			d3.select("svg").style("border", "solid").append("g").attr("transform", "translate(50,50)")
+				.selectAll("circle")
+				.data(bmwData)
+				.enter()
+				.append("circle")
+				.attr("cx", function(d, i){return x(d.AverageCityMPG)})
+				.attr("cy", function(d, i){return y(d.AverageHighwayMPG)})
+				.attr("r", 4)
+				.attr("fill", "lightblue")
+				.attr("stroke", "black")
+
+			d3.select("svg").append("g").attr("transform", "translate(50,50)").call(d3.axisLeft(x).tickValues([10,20,50,100]))
+			d3.select("svg").append("g").attr("transform", "translate(50,250)").call(d3.axisBottom(y).tickValues([10,20,50,100]))
+			d3.select("body").append("p").html("BMW vehicles cover a large range but are generally very fuel efficient");
+		}
+
+		async function audiScene(){
+			d3.select("svg").selectAll("*").remove();
+			d3.select("body").selectAll("p").remove();
+			var y = d3.scaleLog().domain([10, 150]).range([0, 200]); 
+			var x = d3.scaleLog().domain([10, 150]).range([200, 0]); 
+			const data = await d3.csv("https://flunky.github.io/cars2017.csv");
+			const audiData = [];
+			for (let i = 0; i < data.length; i++){
+				if (data[i].Make == "Audi"){
+					audiData.push(data[i])
+				}
+			}
+
+			d3.select("svg").style("border", "solid").append("g").attr("transform", "translate(50,50)")
+				.selectAll("circle")
+				.data(audiData)
+				.enter()
+				.append("circle")
+				.attr("cx", function(d, i){return x(d.AverageCityMPG)})
+				.attr("cy", function(d, i){return y(d.AverageHighwayMPG)})
+				.attr("r", 4)
+				.attr("fill", "red")
+				.attr("stroke", "black")
+
+			d3.select("svg").append("g").attr("transform", "translate(50,50)").call(d3.axisLeft(x).tickValues([10,20,50,100]))
+			d3.select("svg").append("g").attr("transform", "translate(50,250)").call(d3.axisBottom(y).tickValues([10,20,50,100]))
+			d3.select("body").append("p").html("Audi vehicles are on average more fuel efficient than BMW");
+		}
+
+		async function bmwScene(){
+			d3.select("svg").selectAll("*").remove();
+			d3.select("body").selectAll("p").remove();
+			var y = d3.scaleLog().domain([10, 150]).range([0, 200]); 
+			var x = d3.scaleLog().domain([10, 150]).range([200, 0]); 
+			const data = await d3.csv("https://flunky.github.io/cars2017.csv");
+			const bmwData = [];
+			for (let i = 0; i < data.length; i++){
+				if (data[i].Make == "BMW"){
+					bmwData.push(data[i])
+				}
+			}
+
+
+			d3.select("svg").style("border", "solid").append("g").attr("transform", "translate(50,50)")
+				.selectAll("circle")
+				.data(bmwData)
+				.enter()
+				.append("circle")
+				.attr("cx", function(d, i){return x(d.AverageCityMPG)})
+				.attr("cy", function(d, i){return y(d.AverageHighwayMPG)})
+				.attr("r", 4)
+				.attr("fill", "blue")
+				.attr("stroke", "black")
+
+			d3.select("svg").append("g").attr("transform", "translate(50,50)").call(d3.axisLeft(x).tickValues([10,20,50,100]))
+			d3.select("svg").append("g").attr("transform", "translate(50,250)").call(d3.axisBottom(y).tickValues([10,20,50,100]))
+			d3.select("body").append("p").html("BMW vehicles cover a large range but are generally very fuel efficient");
+			console.log("bmw");
+		}
+
+		async function buickScene(){
+			d3.select("svg").selectAll("*").remove();
+			d3.select("body").selectAll("p").remove();
+			var y = d3.scaleLog().domain([10, 150]).range([0, 200]); 
+			var x = d3.scaleLog().domain([10, 150]).range([200, 0]); 
+			const data = await d3.csv("https://flunky.github.io/cars2017.csv");
+			const buickData = [];
+			for (let i = 0; i < data.length; i++){
+				if (data[i].Make == "Buick"){
+					buickData.push(data[i])
+				}
+			}
+
+
+			d3.select("svg").style("border", "solid").append("g").attr("transform", "translate(50,50)")
+				.selectAll("circle")
+				.data(buickData)
+				.enter()
+				.append("circle")
+				.attr("cx", function(d, i){return x(d.AverageCityMPG)})
+				.attr("cy", function(d, i){return y(d.AverageHighwayMPG)})
+				.attr("r", 4)
+				.attr("fill", "green")
+				.attr("stroke", "black")
+
+			d3.select("svg").append("g").attr("transform", "translate(50,50)").call(d3.axisLeft(x).tickValues([10,20,50,100]))
+			d3.select("svg").append("g").attr("transform", "translate(50,250)").call(d3.axisBottom(y).tickValues([10,20,50,100]))
+			d3.select("body").append("p").html("Buick is more fuel efficient than Audi");
+			console.log("buick");
+		}
 
 	</script>
 </body>
